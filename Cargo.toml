@@ -1,0 +1,25 @@
+[package]
+name = "claudimon"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "A cosy terminal creature-collecting sanctuary: befriend Claudimon, tend your garden, and chase the legend of Mythos"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/your-github-user/claudimon"
+keywords = ["game", "terminal", "tui", "creature", "cozy"]
+categories = ["games", "command-line-utilities"]
+
+[dependencies]
+chrono = "0.4.45"
+crossterm = "0.29"
+dirs = "6"
+rand = "0.8"
+rodio = { version = "0.20", default-features = false }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

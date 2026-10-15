@@ -1,0 +1,20 @@
+pkgbase = claudimon-git
+	pkgdesc = A cosy terminal creature-collecting sanctuary: befriend Claudimon and chase the legend of Mythos (git version)
+	pkgver = r0.0000000
+	pkgrel = 1
+	url = https://github.com/your-github-user/claudimon
+	arch = x86_64
+	arch = aarch64
+	license = MIT
+	makedepends = cargo
+	makedepends = git
+	makedepends = pkgconf
+	depends = alsa-lib
+	depends = gcc-libs
+	depends = glibc
+	provides = claudimon
+	conflicts = claudimon
+	source = claudimon::git+https://github.com/your-github-user/claudimon.git
+	sha256sums = SKIP
+
+pkgname = claudimon-git

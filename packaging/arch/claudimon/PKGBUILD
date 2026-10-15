@@ -1,0 +1,42 @@
+# Maintainer: your-name <your-email>
+# Release package for the AUR. After tagging a release (vX.Y.Z) on GitHub:
+#   1. set pkgver, 2. run `updpkgsums`, 3. `makepkg --printsrcinfo > .SRCINFO`.
+
+pkgname=claudimon
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="A cosy terminal creature-collecting sanctuary: befriend Claudimon and chase the legend of Mythos"
+arch=('x86_64' 'aarch64')
+url="https://github.com/your-github-user/claudimon"
+license=('MIT')
+depends=('alsa-lib' 'gcc-libs' 'glibc')
+makedepends=('cargo' 'pkgconf')
+optdepends=('kbd: console fonts used to regenerate README screenshots')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm755 target/release/claudimon "$pkgdir/usr/bin/claudimon"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
